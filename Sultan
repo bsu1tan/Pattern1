@@ -1,0 +1,252 @@
+//class Computer
+
+// Define an abstract class named 'Computer'
+// Определение абстрактного класса с именем 'Computer'
+public abstract class Computer {
+
+    // Declare abstract methods for getting the specifications of a computer
+    // Объявление абстрактных методов для получения характеристик компьютера
+    public abstract String getRAM();  // Abstract method to get RAM specification
+    // Абстрактный метод для получения характеристики ОЗУ
+
+    public abstract String getHDD();  // Abstract method to get HDD specification
+    // Абстрактный метод для получения характеристики жесткого диска (HDD)
+    public abstract String getCPU();  // Abstract method to get CPU specification
+    // Абстрактный метод для получения характеристики процессора (CPU)
+
+    // Override the 'toString' method to generate a string representation of the computer's specifications
+    // Переопределение метода 'toString' для создания строкового представления характеристик компьютера
+    @Override
+    public String toString(){
+        return "RAM= " + this.getRAM() + ", HDD=" + this.getHDD() + ", CPU=" + this.getCPU();
+        // Return a string in the format "RAM= [RAM specification], HDD= [HDD specification], CPU= [CPU specification]"
+        // Возвращаем строку в формате "RAM= [характеристика ОЗУ], HDD= [характеристика HDD], CPU= [характеристика CPU]"
+    }
+}
+
+
+
+//class ComputerFactory
+
+// Define a class named 'ComputerFactory' for creating computer objects
+// Определите класс с именем 'ComputerFactory' для создания компьютерных объектов
+public class ComputerFactory {
+
+    // Static method 'getComputer' for creating a computer based on type and specifications
+    // Статический метод 'get Computer' для создания компьютера на основе типа и спецификаций
+    public static Computer getComputer(String type, String ram, String hdd, String cpu) {
+        if ("PC".equalsIgnoreCase(type)) {
+            // If the type is "PC", create and return a new PC object with the provided specifications
+            // Если тип "PC", создайте и верните новый объект PC с предоставленными спецификациями
+            return new PC(ram, hdd, cpu);
+        } else if ("Server".equalsIgnoreCase(type)) {
+            // If the type is "Server", create and return a new Server object with the provided specifications
+            // Если тип "Сервер", создайте и верните новый серверный объект с предоставленными спецификациями
+            return new Server(ram, hdd, cpu);
+        }
+
+        // If the type is not recognized, return null
+        // Если тип не распознан, верните значение null
+        return null;
+    }
+}
+
+
+//class PC
+
+public class PC extends Computer {
+    private String ram;
+    private String hdd;
+    private String cpu;
+    //Declare private instance variables to store information about the PC
+    //Объявляет частные переменные экземпляры для хранения информации о КОМПЬЮТЕРЕ
+
+    public PC(String ram, String hdd, String cpu){
+        this.ram=ram; // RAM (Random Access Memory) of the PC
+// Оперативная память (оперативная память с произвольным доступом) ПК
+        this.hdd=hdd;// HDD (Hard Disk Drive) of the PC
+// HDD (жесткий диск) ПК
+        this.cpu=cpu; // CPU (Central Processing Unit) of the PC
+// Центральный процессор (Central Processing Unit) ПК
+    }
+    @Override
+    public String getRAM() {
+        return this.ram;
+    }    //Override the 'getname' method from the 'Computer' class
+    //Переопределить метод 'getname' из класса 'Computer'
+    @Override
+    public String getHDD() {
+        return this.hdd;
+    } // Override the 'get HDD' method from the 'Computer' class
+    // Переопределить метод 'get HDD' из класса 'Computer'
+    @Override
+    public String getCPU() {
+        return this.cpu;
+    }    // Override the 'getCPU' method from the 'Computer' class
+// Переопределить метод 'getCPU' из класса 'Computer'
+}
+
+
+// class PCFactory
+
+// Define a class named 'PCFactory' that implements the 'ComputerAbstractFactory' interface
+// Определение класса 'PCFactory', который реализует интерфейс 'ComputerAbstractFactory'
+public class PCFactory implements ComputerAbstractFactory {
+
+    // Declare private instance variables to store information about the PC factory
+    // Объявление приватных переменных экземпляра для хранения информации о фабрике ПК
+    private String ram;  // RAM (Random Access Memory) specification for the PC factory
+    // / Спецификация оперативной памяти (RAM) для фабрики ПК
+    private String hdd;  // HDD (Hard Disk Drive) specification for the PC factory
+    // / Спецификация жесткого диска (HDD) для фабрики ПК
+    private String cpu;  // CPU (Central Processing Unit) specification for the PC factory
+    // / Спецификация центрального процессора (CPU) для фабрики ПК
+
+    // Constructor for the 'PCFactory' class that takes RAM, HDD, and CPU specifications as parameters
+    // Конструктор класса 'PCFactory', принимающий спецификации RAM, HDD и CPU в качестве параметров
+    public PCFactory(String ram, String hdd, String cpu){
+        this.ram = ram;  // Initialize the 'ram' instance variable with the provided RAM specification
+        // / Инициализация переменной экземпляра 'ram' спецификацией оперативной памяти (RAM)
+        this.hdd = hdd;  // Initialize the 'hdd' instance variable with the provided HDD specification
+        // / Инициализация переменной экземпляра 'hdd' спецификацией жесткого диска (HDD)
+        this.cpu = cpu;  // Initialize the 'cpu' instance variable with the provided CPU specification
+        // / Инициализация переменной экземпляра 'cpu' спецификацией центрального процессора (CPU)
+    }
+
+    // Implement the 'createComputer' method as required by the 'ComputerAbstractFactory' interface
+    // Реализация метода 'createComputer', как требуется интерфейсом 'ComputerAbstractFactory'
+    @Override
+    public Computer createComputer() {
+        // Create and return a new 'PC' object with the specified RAM, HDD, and CPU specifications
+        // Создание и возврат нового объекта 'PC' с указанными спецификациями RAM, HDD и CPU
+        return new PC(ram, hdd, cpu);
+    }
+}
+
+
+//class Server
+
+
+public class Server extends Computer {
+    // Define a class named 'Server' that extends the 'Computer' class
+// Определение класса 'Server', который расширяет класс 'Computer'
+
+    // Declare private instance variables to store information about the server
+    // Объявление приватных переменных экземпляра для хранения информации о сервере
+    private String ram;// RAM (Random Access Memory) of the server / Оперативная память (RAM) сервера
+    private String hdd;// HDD (Hard Disk Drive) of the server / Жесткий диск (HDD) сервера
+    private String cpu;// CPU (Central Processing Unit) of the server / Центральный процессор (CPU) сервера
+
+
+
+    // Constructor for the 'Server' class that takes RAM, HDD, and CPU as parameters
+    // Конструктор класса 'Server', принимающий RAM, HDD и CPU в качестве параметров
+    public Server(String ram, String hdd, String cpu){
+        this.ram=ram;// Initialize the 'ram' instance variable with the provided value
+        // / Инициализация переменной экземпляра 'ram' предоставленным значением
+        this.hdd=hdd;  // Initialize the 'hdd' instance variable with the provided value
+        // / Инициализация переменной экземпляра 'hdd' предоставленным значением
+
+        this.cpu=cpu;// Initialize the 'cpu' instance variable with the provided value
+        // / Инициализация переменной экземпляра 'cpu' предоставленным значением
+    }
+
+    // Override the 'getRAM' method from the 'Computer' class
+    // Переопределение метода 'getRAM' из класса 'Computer'
+    @Override
+    public String getRAM() {
+        return this.ram;// Return the RAM of the server / Возвращение RAM сервера
+    }
+
+    // Override the 'getHDD' method from the 'Computer' class
+    // Переопределение метода 'getHDD' из класса 'Computer'
+    @Override
+    public String getHDD() {
+        return this.hdd;// Return the HDD of the server / Возвращение HDD сервера
+    }
+
+    // Override the 'getCPU' method from the 'Computer' class
+    // Переопределение метода 'getCPU' из класса 'Computer'
+    @Override
+    public String getCPU() {
+        return this.cpu;// Return the CPU of the server / Возвращение CPU сервера
+    }
+}
+
+//class ServerFactory
+
+// Define a class named 'ServerFactory' that implements the 'ComputerAbstractFactory' interface
+// Определение класса 'ServerFactory', который реализует интерфейс 'ComputerAbstractFactory'
+public class ServerFactory implements ComputerAbstractFactory {
+
+    // Declare private instance variables to store information about the Server factory
+    // Объявление приватных переменных экземпляра для хранения информации о фабрике серверов
+    private String ram;  // RAM (Random Access Memory) specification for the Server factory
+    // / Спецификация оперативной памяти (RAM) для фабрики серверов
+    private String hdd;  // HDD (Hard Disk Drive) specification for the Server factory
+    // / Спецификация жесткого диска (HDD) для фабрики серверов
+    private String cpu;  // CPU (Central Processing Unit) specification for the Server factory
+    // / Спецификация центрального процессора (CPU) для фабрики серверов
+
+    // Constructor for the 'ServerFactory' class that takes RAM, HDD, and CPU specifications as parameters
+    // Конструктор класса 'ServerFactory', принимающий спецификации RAM, HDD и CPU в качестве параметров
+    public ServerFactory(String ram, String hdd, String cpu){
+        this.ram = ram;  // Initialize the 'ram' instance variable with the provided RAM specification
+        // / Инициализация переменной экземпляра 'ram' спецификацией оперативной памяти (RAM)
+        this.hdd = hdd;  // Initialize the 'hdd' instance variable with the provided HDD specification
+        // / Инициализация переменной экземпляра 'hdd' спецификацией жесткого диска (HDD)
+        this.cpu = cpu;  // Initialize the 'cpu' instance variable with the provided CPU specification
+        // / Инициализация переменной экземпляра 'cpu' спецификацией центрального процессора (CPU)
+    }
+
+    // Implement the 'createComputer' method as required by the 'ComputerAbstractFactory' interface
+    // Реализация метода 'createComputer', как требуется интерфейсом 'ComputerAbstractFactory'
+    @Override
+    public Computer createComputer() {
+        // Create and return a new 'Server' object with the specified RAM, HDD, and CPU specifications
+        // Создание и возврат нового объекта 'Server' с указанными спецификациями RAM, HDD и CPU
+        return new Server(ram, hdd, cpu);
+    }
+}
+
+
+//class TestDesignPatterns
+
+    // Define a class named 'TestDesignPatterns' for testing design patterns
+    public class TestDesignPatterns {
+        public static void main(String[] args) {
+            testAbstractFactory();
+        }
+
+        private static void testAbstractFactory() {
+            // Create a PC and a Server using the abstract factory pattern
+            // Создание объектов PC и Server с использованием абстрактного шаблона фабрики
+            Computer pc = ComputerFactory.getComputer(new PCFactory("2 GB", "500 GB", "2.4 GHz"));
+            Computer server = ComputerFactory.getComputer(new ServerFactory("16 GB", "1 TB", "2.9 GHz"));
+
+            // Display the configurations of the created computers
+            // Вывод конфигураций созданных компьютеров
+            System.out.println("AbstractFactory PC Config::" + pc);
+            System.out.println("AbstractFactory Server Config::" + server);
+        }
+    }
+
+
+//class TestFactory
+
+// Define a class named 'TestFactory' for testing the computer factory pattern
+// Определение класса 'TestFactory' для тестирования шаблона фабрики компьютеров
+public class TestFactory {
+    public static void main(String[] args) {
+        // Create a PC and a Server using the ComputerFactory and specify their configurations
+        // Создание объектов PC и Server с использованием ComputerFactory и указание их конфигураций
+        Computer pc = ComputerFactory.getComputer("pc", "2 GB", "500 GB", "2.4 GHz");
+        Computer server = ComputerFactory.getComputer("server", "16 GB", "1 TB", "2.9 GHz");
+
+        // Display the configurations of the created computers
+        // Вывод конфигураций созданных компьютеров
+        System.out.println("Factory PC Config::" + pc);
+        System.out.println("Factory Server Config::" + server);
+    }
+}
+
